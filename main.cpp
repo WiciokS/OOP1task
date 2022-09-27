@@ -6,13 +6,22 @@ using namespace std;
 //data calculation
 class Data
 {
+  private:
+    //current date set
+    vector<int> currentdate;
+    //current birth date
+    vector<int> birthdate;
   public:
-//current data set
-  vector<int> currentdate;
-//current birth date
-  vector<int> birthdate;
+  void cd(vector<int> current)
+{
+  currentdate=current;
+}
+  void bd(vector<int> birth)
+{
+  birthdate=birth;
+}
 //Age calculation
-    int Age(vector<int> currentdate, vector<int> birthdate)
+    int Age()
   {
     int age;
     age = currentdate[0] - birthdate[0];
@@ -22,7 +31,7 @@ class Data
     return age;
   }
 //calculates days until birthday
-    int DaysUntil(vector<int> currentdate, vector<int> birthdate)
+    int DaysUntil()
   {
     //days count
     int count=0;
@@ -66,10 +75,10 @@ class Data
   //output
   return count;
   }
-    //personal data output
+  //personal data output
     void PersonalData(string name,string surname,int age)
   {
-    cout<<"\nPersoal Information: "<<endl;
+    cout<<"\nPersonal Information: "<<endl;
     cout<<"Your name is: "<<name<<endl;
     cout<<"Your surname is: "<<surname<<endl;
     cout<<"Your age is: "<<age<<endl;
@@ -78,40 +87,70 @@ class Data
 //person data
 class Person
 {
-  public:
+  private:
     string name;
     string surname;
     vector<int> birthdate;
+  public:
+    void nam(string nam)
+{
+  name=nam;
+}
+    void surnam(string sur)
+{
+  surname=sur;
+}
+    void birthdat(vector<int> birth)
+{
+  birthdate=birth;
+}
+    string getnam()
+{
+  return name;
+}
+    string getsur()
+{
+  return surname;
+}
+    vector<int> getbirth()
+{
+  return birthdate;
+}
+
 };
 
 int main() 
 {
+  //inputs
+  string name="Vitold",surname="Skuder";
+  vector<int> currentdate ={2022,9,15},birthdate={2001,10,2};
+  //outputs
   int age,days;
-  string name,surname;
+  string nam,sur;
+  vector<int> cur,bir;
+  cur=currentdate;
+  
     //First person
   Person first;
-  first.name = "Vitold";
-  first.surname = "Skuder";
-  first.birthdate = {2001,10,2};
-    //Set current name
-  name=first.name;
-    //Set current surname
-  surname=first.surname;
+  //seterai
+  first.nam(name);
+  first.surnam(surname);
+  first.birthdat(birthdate);
+  //geterai
+  bir=first.getbirth();
+  nam=first.getnam();
+  sur=first.getsur();
     //Set current birth date
-  Data setcurrentbirthdate;
-  setcurrentbirthdate.birthdate=first.birthdate;
+  Data person;
+  person.cd(cur);
     //Set current date
-  Data setcurrentdate;
-  setcurrentdate.currentdate={2022,9,15};
+  person.bd(bir);
     //Age Calculation
-  Data AgeCalculation;
-  age=AgeCalculation.Age(setcurrentdate.currentdate,setcurrentbirthdate.birthdate);
+  age=person.Age();
   cout<<"Calculated age: "<<age<<endl;
     //days until birthday
-  Data DaysCalculation;
-  days=DaysCalculation.DaysUntil(setcurrentdate.currentdate,setcurrentbirthdate.birthdate);
+  days=person.DaysUntil();
   cout<<"Days left until birthday: "<<days<<endl;
     //Personal data
-  Data PersonalData;
-  PersonalData.PersonalData(name,surname,age);
+  person.PersonalData(nam,sur,age);
 }
